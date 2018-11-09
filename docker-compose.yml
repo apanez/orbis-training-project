@@ -1,0 +1,19 @@
+version: "3"
+services:
+  node:
+    container_name: node_slim
+    image: node:10.10.0-slim
+    working_dir: ${WORK_DIR_NAME}
+    expose: 
+      - "3030"
+    ports:
+      - "1042:3030"
+    volumes:
+      - .:/app
+    command: "npm start"
+  test:
+    container_name: test
+    image: node:10.10.0-slim
+    command: curl node:3030
+    depends_on:
+      - node
